@@ -35,10 +35,16 @@ class ViewController: UIViewController {
     
     func adjustCellsOpacity() {
         for cell in tableView.visibleCells {
-            let bottomOfCell = tableView.convert(cell.frame, to: tableView.superview).maxY
-            let bottomOfTable = tableView.convert(tableView.bounds, to: tableView.superview).maxY
+            let cellRect = tableView.convert(cell.frame, to: tableView.superview)
+            let cellBottom = cellRect.maxY
+            let tableBottom = tableView.frame.maxY
             
-            let opacity = (bottomOfTable - bottomOfCell) / tableView.frame.height
+            var opacity = CGFloat(1.0)
+            if cellBottom > tableBottom {
+                opacity = 0.0
+            } else {
+                opacity = 1.0
+            }
             cell.alpha = opacity
         }
     }
