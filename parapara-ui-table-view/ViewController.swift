@@ -32,6 +32,16 @@ class ViewController: UIViewController {
         
         tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: "cell")
     }
+    
+    func adjustCellsOpacity() {
+        for cell in tableView.visibleCells {
+            let bottomOfCell = tableView.convert(cell.frame, to: tableView.superview).maxY
+            let bottomOfTable = tableView.convert(tableView.bounds, to: tableView.superview).maxY
+            
+            let opacity = (bottomOfTable - bottomOfCell) / tableView.frame.height
+            cell.alpha = opacity
+        }
+    }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
@@ -51,5 +61,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UIScreen.main.bounds.height * 3 / 10
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        adjustCellsOpacity()
     }
 }
