@@ -16,13 +16,17 @@ class ImageTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    var leadingConstraint: NSLayoutConstraint!
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(customImageView)
         
+        leadingConstraint = customImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        leadingConstraint.isActive = true
+        
         NSLayoutConstraint.activate([
-            customImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             customImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             customImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 8 / 10),
             customImageView.widthAnchor.constraint(equalTo: customImageView.heightAnchor, multiplier: 16/9)

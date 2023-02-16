@@ -44,6 +44,8 @@ class ViewController: UIViewController {
                 let cellHeight = cellRect.height
                 let cellImageTop = cellBottom - imageTableViewCell.customImageView.bounds.height
                 
+                let gap = tableViewBottom - cellBottom
+                imageTableViewCell.leadingConstraint.constant = gap
                 
                 // TODO: cell.alphaを使ってcellの透明度を位置によって変える
             }
