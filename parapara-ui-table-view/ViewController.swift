@@ -34,18 +34,19 @@ class ViewController: UIViewController {
     }
     
     func adjustCellsOpacity() {
+        let tableViewTop = tableView.frame.minY
+        let tableViewBottom = tableView.frame.maxY
+        
         for cell in tableView.visibleCells {
-            let cellRect = tableView.convert(cell.frame, to: tableView.superview)
-            let cellBottom = cellRect.maxY
-            let tableBottom = tableView.frame.maxY
-            
-            var opacity = CGFloat(1.0)
-            if cellBottom > tableBottom {
-                opacity = 0.0
-            } else {
-                opacity = 1.0
+            if let imageTableViewCell = cell as? ImageTableViewCell {
+                let cellRect = tableView.convert(imageTableViewCell.frame, to: tableView.superview)
+                let cellBottom = cellRect.maxY
+                let cellHeight = cellRect.height
+                let cellImageTop = cellBottom - imageTableViewCell.customImageView.bounds.height
+                
+                
+                // TODO: cell.alphaを使ってcellの透明度を位置によって変える
             }
-            cell.alpha = opacity
         }
         
         for (index, image) in imageArray.enumerated() {
@@ -54,7 +55,6 @@ class ViewController: UIViewController {
             }
         }
     }
-
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
@@ -68,6 +68,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         
         cell.customImageView.image = imageArray[indexPath.row]
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
+        cell.tag = indexPath.row
         
         return cell
     }
