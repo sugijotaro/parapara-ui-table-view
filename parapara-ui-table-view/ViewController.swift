@@ -47,7 +47,14 @@ class ViewController: UIViewController {
             }
             cell.alpha = opacity
         }
+        
+        for (index, image) in imageArray.enumerated() {
+            if let cell = tableView.visibleCells.first(where: { ($0 as? ImageTableViewCell)?.customImageView.image == image }) {
+                tableView.sendSubviewToBack(cell)
+            }
+        }
     }
+
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
